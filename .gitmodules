@@ -1,0 +1,4 @@
+[submodule "linuxEssentials"]
+	path = linuxEssentials
+	url = https://github.com/DimitriDeSchuyter/linux-essentials-install.git
+	branch = rpi

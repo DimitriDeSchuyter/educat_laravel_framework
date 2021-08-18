@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  tcp-educat:
+    container_name: tcp-educat
+    build: ./../build
+    restart: unless-stopped
+    ports:
+      - 20001:20001
+    environment:
+      - DB_HOST=172.17.0.1
+      - DB_PORT=3306
+      - DB_NAME=educat
+      - DB_USER=$DB_EDUCAT_USERNAME
+      - DB_PASS=$DB_EDUCAT_PASSWORD
+      - TCP_PORT=20001
+    #networks:
+    #  - db
+    volumes:
+      - ./../code:/var/www/html
+    cap_add:
+      - NET_ADMIN
+    command: [ "php", "./tcp.php" ]
+
+  # conversion:
+  #   container_name: conversion
+  #   build: ./build
+  #   restart: "no"
+  #   environment:
+  #     - DB_HOST=172.17.0.1
+  #     - DB_PORT=3306
+  #     - DB_NAME=educat
+  #     - DB_USER=$DB_EDUCAT_USERNAME
+  #     - DB_PASS=$DB_EDUCAT_PASSWORD
+  #   #networks:
+  #   #  - db
+  #   volumes:
+  #     - ./code:/var/www/html
+  #   cap_add:
+  #     - NET_ADMIN
+  #   command: [ "php", "./conversion.php" ]
+  
+  # recount:
+  #   container_name: recount
+  #   build: ./build
+  #   restart: "no"
+  #   environment:
+  #     - DB_HOST=172.17.0.1
+  #     - DB_PORT=3306
+  #     - DB_NAME=educat
+  #     - DB_USER=$DB_EDUCAT_USERNAME
+  #     - DB_PASS=$DB_EDUCAT_PASSWORD
+  #   #networks:
+  #   #  - db
+  #   volumes:
+  #     - ./code:/var/www/html
+  #   cap_add:
+  #     - NET_ADMIN
+  #   command: [ "php", "./recount.php" ]
+#networks:
+#  db:
+#    external: true
+
+
+

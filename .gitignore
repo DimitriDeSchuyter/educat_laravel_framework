@@ -1,0 +1,28 @@
+# Ignore Linux Home files and folders
+/.*
+
+# Ignore all environment files
+.env
+!.env.example
+
+# Ignore all VS-Code files
+.vscode
+.vscode-server
+
+# git files to ignore
+.gitconfig
+.git-credentials
+
+# Never ignore crucial git files
+!/.gitignore
+!/.gitmodules
+
+# Ignore certificartes
+/certs/*.pem
+certs/cert.pem
+certs/key.pem
+# ignore subdomain list and traefik account 
+docker/config/pihole/internal.list
+docker/config/essentials/traefik/users.htpasswd
+
+backup

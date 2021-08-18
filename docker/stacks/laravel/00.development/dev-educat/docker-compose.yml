@@ -1,0 +1,58 @@
+
+version: "3.7"
+
+services:
+  php:
+    container_name: dev-educat-php
+    restart: always
+    image: laravel-php
+    volumes:
+      - ./../../01.source:/app
+      - storage:/app/storage
+    environment:
+       - PGID="$PGID"
+       - PUID="$PUID"
+       - APP_NAME="EDUCAT (Development Branch)"
+       - APP_REALM="EDUCAT"
+       - APP_URL="https://dev-educat.$DOMAINNAME"
+       - APP_DEV_URL="https://dev-educat.$DOMAINNAME"
+       - DB_HOST=172.17.0.1
+       - DB_PORT=3306
+       - DB_DATABASE=$DB_EDUCAT_DATABASE
+       - DB_USERNAME=$DB_EDUCAT_USERNAME
+       - DB_PASSWORD=$DB_EDUCAT_PASSWORD
+    networks:
+       - backend
+
+  nginx:
+    container_name: dev-educat-nginx
+    restart: always
+    image: laravel-nginx
+    volumes:
+      - ./../../01.source:/app
+      - storage:/app/storage
+    depends_on:
+      - php
+    networks:
+      - backend
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+
+      - "traefik.http.routers.dev-educat.entrypoints=websecure"
+      - "traefik.http.routers.dev-educat.rule=Host(`dev-educat.${DOMAINNAME}`)"
+      - "traefik.http.routers.dev-educat.tls=true"
+      - "traefik.http.routers.dev-educat.service=dev-educat"
+
+      - "traefik.http.services.dev-educat.loadbalancer.server.port=80"
+
+volumes:
+  storage:
+    name: dev-educat-storage
+
+networks:
+  backend:
+    name: dev-educat-backend
+  web:
+    external: true
