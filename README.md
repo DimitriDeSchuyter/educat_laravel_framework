@@ -1,9 +1,9 @@
-# Codename: MYRIADE (Repository)
+# EDUCAT: Laravel framework (Repository)
 
 # Installation on a fresh linux system
 sudo apt-get update && sudo apt-get install -y git python3
 
-git clone https://github.com/DimitriDeSchuyter/codename-myriade-repo.git repository && cp -rf repository/. . && rm -rf repository
+git clone https://github.com/DimitriDeSchuyter/educat_laravel_framework.git repository && cp -rf repository/. . && rm -rf repository
 
 git submodule update --init --recursive
 
