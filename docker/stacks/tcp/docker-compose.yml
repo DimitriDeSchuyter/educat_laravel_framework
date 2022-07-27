@@ -3,7 +3,7 @@ version: '3.7'
 services:
   tcp-educat:
     container_name: tcp-educat
-    build: ./../build
+    build: ./build
     restart: unless-stopped
     ports:
       - 20001:20001
